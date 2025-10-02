@@ -9,6 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar">
 
+        <!-- MainActivity برای لانچر -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -17,13 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- سایر اکتیویتی ها هم اگه دارید باید android:exported مشخص بشه -->
-        <activity android:name=".activities/HomeActivity" android:exported="false"/>
-        <activity android:name=".activities/AddInvestmentActivity" android:exported="false"/>
-        <activity android:name=".activities/AddPurchaseActivity" android:exported="false"/>
-        <activity android:name=".activities/AddTransactionActivity" android:exported="false"/>
-        <activity android:name=".activities/FuturePurchasesActivity" android:exported="false"/>
 
     </application>
 
