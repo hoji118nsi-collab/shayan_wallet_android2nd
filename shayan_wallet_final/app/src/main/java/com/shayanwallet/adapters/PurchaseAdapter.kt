@@ -14,8 +14,8 @@ class PurchaseAdapter(private val purchases: List<Purchase>) :
     RecyclerView.Adapter<PurchaseAdapter.PurchaseViewHolder>() {
 
     inner class PurchaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
-        val amountTextView: TextView = itemView.findViewById(R.id.amountTextView)
+        val titleTextView: TextView = itemView.findViewById(R.id.itemNameTextView)
+        val amountTextView: TextView = itemView.findViewById(R.id.costTextView)
         val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
     }
 

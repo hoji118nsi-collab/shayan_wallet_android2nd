@@ -12,7 +12,8 @@ import com.shayanwallet.models.Purchase
 
 @Database(
     entities = [Transaction::class, Investment::class, FuturePurchase::class, Purchase::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

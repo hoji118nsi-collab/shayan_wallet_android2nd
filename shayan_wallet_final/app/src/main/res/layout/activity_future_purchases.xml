@@ -12,6 +12,14 @@
         android:textSize="18sp"
         android:layout_marginBottom="12dp"/>
 
+    <!-- دکمه افزودن خرید جدید -->
+    <Button
+        android:id="@+id/addPurchaseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="افزودن خرید"
+        android:layout_marginBottom="12dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/futurePurchasesRecyclerView"
         android:layout_width="match_parent"
