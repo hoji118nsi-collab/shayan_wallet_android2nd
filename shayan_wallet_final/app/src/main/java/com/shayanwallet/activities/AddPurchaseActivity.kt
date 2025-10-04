@@ -1,6 +1,5 @@
 package com.shayanwallet.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -35,15 +34,16 @@ class AddPurchaseActivity : AppCompatActivity() {
     private fun savePurchase() {
         val itemName = itemNameEditText.text.toString()
         val cost = costEditText.text.toString().toIntOrNull() ?: 0
-        val purchase = Purchase(itemName = itemName, cost = cost, purchaseDate = Date())
+        val purchase = Purchase(title = itemName, amount = cost, date = Date())
 
         CoroutineScope(Dispatchers.IO).launch {
             DatabaseClient.getDatabase(this@AddPurchaseActivity)
                 .purchaseDao()
                 .insert(purchase)
 
-            // بعد از ذخیره، به صفحه لیست خریدهای آینده برگرد
+            // بعد از ذخیره، نتیجه موفقیت‌آمیز برگردان
             runOnUiThread {
+                setResult(RESULT_OK)
                 finish()
             }
         }

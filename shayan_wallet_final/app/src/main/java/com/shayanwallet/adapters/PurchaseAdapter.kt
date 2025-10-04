@@ -14,8 +14,8 @@ class PurchaseAdapter(private val purchases: List<Purchase>) :
     RecyclerView.Adapter<PurchaseAdapter.PurchaseViewHolder>() {
 
     inner class PurchaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itemNameTextView: TextView = itemView.findViewById(R.id.itemNameTextView)
-        val costTextView: TextView = itemView.findViewById(R.id.costTextView)
+        val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
+        val amountTextView: TextView = itemView.findViewById(R.id.amountTextView)
         val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
     }
 
@@ -27,11 +27,11 @@ class PurchaseAdapter(private val purchases: List<Purchase>) :
 
     override fun onBindViewHolder(holder: PurchaseViewHolder, position: Int) {
         val purchase = purchases[position]
-        holder.itemNameTextView.text = purchase.itemName
-        holder.costTextView.text = purchase.cost.toString()
+        holder.titleTextView.text = purchase.title
+        holder.amountTextView.text = purchase.amount.toString()
 
         val formatter = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
-        holder.dateTextView.text = formatter.format(purchase.purchaseDate)
+        holder.dateTextView.text = formatter.format(purchase.date)
     }
 
     override fun getItemCount(): Int = purchases.size

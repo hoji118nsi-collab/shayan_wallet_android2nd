@@ -8,14 +8,19 @@ import android.content.Context
 import com.shayanwallet.models.Transaction
 import com.shayanwallet.models.Investment
 import com.shayanwallet.models.FuturePurchase
+import com.shayanwallet.models.Purchase
 
-@Database(entities = [Transaction::class, Investment::class, FuturePurchase::class], version = 1)
+@Database(
+    entities = [Transaction::class, Investment::class, FuturePurchase::class, Purchase::class],
+    version = 1
+)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun transactionDao(): TransactionDao
     abstract fun investmentDao(): InvestmentDao
     abstract fun futurePurchaseDao(): FuturePurchaseDao
+    abstract fun purchaseDao(): PurchaseDao
 
     companion object {
         @Volatile
