@@ -10,7 +10,6 @@ import com.shayanwallet.models.Transaction
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 class AddTransactionActivity : AppCompatActivity() {
 
@@ -22,12 +21,10 @@ class AddTransactionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_transaction)
 
-        // لینک دادن ویجت‌ها
         titleEditText = findViewById(R.id.titleEditText)
         amountEditText = findViewById(R.id.amountEditText)
         saveTransactionBtn = findViewById(R.id.saveTransactionBtn)
 
-        // کلیک روی دکمه ذخیره
         saveTransactionBtn.setOnClickListener {
             saveTransaction()
         }
@@ -36,13 +33,16 @@ class AddTransactionActivity : AppCompatActivity() {
     private fun saveTransaction() {
         val title = titleEditText.text.toString()
         val amount = amountEditText.text.toString().toIntOrNull() ?: 0
-        val transaction = Transaction(title = title, amount = amount, date = Date())
+        val transaction = Transaction(title = title, amount = amount)
 
-        // ذخیره در دیتابیس با coroutine
         CoroutineScope(Dispatchers.IO).launch {
-            DatabaseClient.getDatabase(this@AddTransactionActivity).transactionDao().insert(transaction)
+            DatabaseClient.getDatabase(this@AddTransactionActivity)
+                .transactionDao()
+                .insert(transaction)
+
             runOnUiThread {
-                finish() // پس از ذخیره، بازگشت به HomeActivity
+                setResult(RESULT_OK)
+                finish()
             }
         }
     }
