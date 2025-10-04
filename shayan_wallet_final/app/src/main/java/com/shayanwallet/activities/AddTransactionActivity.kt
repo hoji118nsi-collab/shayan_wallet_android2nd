@@ -10,6 +10,7 @@ import com.shayanwallet.models.Transaction
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class AddTransactionActivity : AppCompatActivity() {
 
@@ -33,7 +34,7 @@ class AddTransactionActivity : AppCompatActivity() {
     private fun saveTransaction() {
         val title = titleEditText.text.toString()
         val amount = amountEditText.text.toString().toIntOrNull() ?: 0
-        val transaction = Transaction(title = title, amount = amount)
+        val transaction = Transaction(title = title, amount = amount, date = Date())
 
         CoroutineScope(Dispatchers.IO).launch {
             DatabaseClient.getDatabase(this@AddTransactionActivity)
