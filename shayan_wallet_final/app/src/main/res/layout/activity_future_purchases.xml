@@ -5,29 +5,15 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- فیلد عنوان خرید -->
-    <EditText
-        android:id="@+id/titleEditText"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="عنوان خرید"
-        android:inputType="textPersonName"
+        android:text="لیست خریدهای آینده"
+        android:textSize="18sp"
         android:layout_marginBottom="12dp"/>
 
-    <!-- فیلد مبلغ خرید -->
-    <EditText
-        android:id="@+id/amountEditText"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/futurePurchasesRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="مبلغ"
-        android:inputType="number"
-        android:layout_marginBottom="12dp"/>
-
-    <!-- دکمه ذخیره خرید -->
-    <Button
-        android:id="@+id/savePurchaseBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ذخیره خرید"/>
-
+        android:layout_height="match_parent"/>
 </LinearLayout>

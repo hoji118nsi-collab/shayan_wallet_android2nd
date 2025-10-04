@@ -1,12 +1,13 @@
 package com.shayanwallet.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.shayanwallet.R
 import com.shayanwallet.db.DatabaseClient
-import com.shayanwallet.models.FuturePurchase
+import com.shayanwallet.models.Purchase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,16 +15,16 @@ import java.util.*
 
 class AddPurchaseActivity : AppCompatActivity() {
 
-    private lateinit var titleEditText: EditText
-    private lateinit var amountEditText: EditText
+    private lateinit var itemNameEditText: EditText
+    private lateinit var costEditText: EditText
     private lateinit var savePurchaseBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_purchase)
 
-        titleEditText = findViewById(R.id.titleEditText)
-        amountEditText = findViewById(R.id.amountEditText)
+        itemNameEditText = findViewById(R.id.itemNameEditText)
+        costEditText = findViewById(R.id.costEditText)
         savePurchaseBtn = findViewById(R.id.savePurchaseBtn)
 
         savePurchaseBtn.setOnClickListener {
@@ -32,15 +33,18 @@ class AddPurchaseActivity : AppCompatActivity() {
     }
 
     private fun savePurchase() {
-        val title = titleEditText.text.toString()
-        val amount = amountEditText.text.toString().toIntOrNull() ?: 0
-        val purchase = FuturePurchase(title = title, amount = amount, date = Date())
+        val itemName = itemNameEditText.text.toString()
+        val cost = costEditText.text.toString().toIntOrNull() ?: 0
+        val purchase = Purchase(itemName = itemName, cost = cost, purchaseDate = Date())
 
-        // ذخیره در دیتابیس با coroutine
         CoroutineScope(Dispatchers.IO).launch {
-            DatabaseClient.getDatabase(this@AddPurchaseActivity).futurePurchaseDao().insert(purchase)
+            DatabaseClient.getDatabase(this@AddPurchaseActivity)
+                .purchaseDao()
+                .insert(purchase)
+
+            // بعد از ذخیره، به صفحه لیست خریدهای آینده برگرد
             runOnUiThread {
-                finish() // برگرد به صفحه قبلی
+                finish()
             }
         }
     }
