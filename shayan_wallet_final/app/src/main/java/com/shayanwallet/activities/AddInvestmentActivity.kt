@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.shayanwallet.R
 import com.shayanwallet.db.DatabaseClient
 import com.shayanwallet.models.Investment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.concurrent.thread
 
 class AddInvestmentActivity : AppCompatActivity() {
 
@@ -34,8 +36,9 @@ class AddInvestmentActivity : AppCompatActivity() {
         val amount = amountEditText.text.toString().toIntOrNull() ?: 0
         val investment = Investment(title = title, amount = amount, date = Date())
 
-        thread {
-            DatabaseClient.getDatabase(this).investmentDao().insert(investment)
+        // ذخیره در دیتابیس با coroutine
+        CoroutineScope(Dispatchers.IO).launch {
+            DatabaseClient.getDatabase(this@AddInvestmentActivity).investmentDao().insert(investment)
             runOnUiThread {
                 finish() // برگرد به صفحه قبلی
             }

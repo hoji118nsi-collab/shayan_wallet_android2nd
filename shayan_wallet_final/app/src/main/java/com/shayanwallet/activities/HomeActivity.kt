@@ -12,7 +12,10 @@ import com.shayanwallet.adapters.InvestmentAdapter
 import com.shayanwallet.db.DatabaseClient
 import com.shayanwallet.models.Transaction
 import com.shayanwallet.models.Investment
-import kotlin.concurrent.thread
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeActivity : AppCompatActivity() {
 
@@ -54,24 +57,24 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadTransactions() {
-        thread {
-            val transactions = DatabaseClient.getDatabase(this).transactionDao().getAll()
-            runOnUiThread {
-                transactionList.clear()
-                transactionList.addAll(transactions)
-                transactionAdapter.notifyDataSetChanged()
+        lifecycleScope.launch {
+            val transactions = withContext(Dispatchers.IO) {
+                DatabaseClient.getDatabase(this@HomeActivity).transactionDao().getAll()
             }
+            transactionList.clear()
+            transactionList.addAll(transactions)
+            transactionAdapter.notifyDataSetChanged()
         }
     }
 
     private fun loadInvestments() {
-        thread {
-            val investments = DatabaseClient.getDatabase(this).investmentDao().getAll()
-            runOnUiThread {
-                investmentList.clear()
-                investmentList.addAll(investments)
-                investmentAdapter.notifyDataSetChanged()
+        lifecycleScope.launch {
+            val investments = withContext(Dispatchers.IO) {
+                DatabaseClient.getDatabase(this@HomeActivity).investmentDao().getAll()
             }
+            investmentList.clear()
+            investmentList.addAll(investments)
+            investmentAdapter.notifyDataSetChanged()
         }
     }
 
