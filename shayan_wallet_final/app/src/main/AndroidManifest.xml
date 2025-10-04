@@ -9,9 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar">
 
-        <!-- MainActivity برای لانچر -->
+        <!-- HomeActivity برای لانچر -->
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +19,9 @@
             </intent-filter>
         </activity>
 
-    </application>
+        <!-- سایر اکتیویتی‌ها -->
+        <activity android:name=".activities.AddTransactionActivity" />
+        <activity android:name=".activities.AddPurchaseActivity" />
 
+    </application>
 </manifest>
